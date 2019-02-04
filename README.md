@@ -6,7 +6,7 @@ Eye-tracking and face analysis in AR, for predicting user's geographics, emotion
 
 **First Place**, *Best Buy Best Hacks* out of 400+ people.
 
-<!--[![Visual Eyes](https://img.youtube.com/vi/ALl_-Kd7OM8/0.jpg)](https://www.youtube.com/watch?v=ALl_-Kd7OM8)-->
+[![Visual Eyes](https://img.youtube.com/vi/ALl_-dHPioO0KVxE/0.jpg)](https://www.youtube.com/watch?v=dHPioO0KVxE)
 Video demo incoming</br>
 
 *Click the image above to watch a demo*
