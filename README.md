@@ -2,7 +2,7 @@
 
 **Powered by Azure Cognitive Services, ARKit2 and Firebase**
 
-Eye-tracking and face analysis in AR, for predicting user's geographics, emotion and focus when reading marketing materials. Dynamically store analysis results at backend. Proof of concept at _BizHacks_. 
+Eye-tracking and face analysis in AR, for recording user's focus and predicting user's geographics and emotion when reading marketing materials. Dynamically store analysis results at backend. Proof of concept at _BizHacks_. 
 
 **First Place**, *Best Buy Best Hacks* out of 400+ people.
 
