@@ -19,4 +19,4 @@ Video demo incoming</br>
 Architecture diagram incoming</br>
 
 The frontend tracks the user's eye tracing data, and calculate the coordinates of the points users are looking at on the plane. It is also taking a picture of users every 5 seconds, and uses Azure face detection APIs from
-cognitive services to predict user's age and emotion during the period. All the user data generated with the app are stored and uploaded to Firebase for future analysis and data visualization.
+cognitive services to predict users' age, sex and emotion during the period. All the user data generated with the app are stored and uploaded to Firebase for future analysis and data visualization.
