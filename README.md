@@ -2,9 +2,9 @@
 
 **Powered by Azure Cognitive Services, ARKIT2 and Firebase**
 
-Eye-tracking and emotion prediction of user's reaction to Best Buy's marketing materials. Dynamically store user's picture and reaction data at backend. Proof of concept at _BizHacks_. 
+AR Eye-tracking and emotion prediction of user's reaction to Best Buy's marketing materials. Dynamically store user's picture and reaction data at backend. Proof of concept at _BizHacks_. 
 
-**First Place**, *Best Buy Price Winner* out of 400+ people.
+**First Place**, *Best Buy Best Hacks* out of 400+ people.
 
 <!--[![Visual Eyes](https://img.youtube.com/vi/ALl_-Kd7OM8/0.jpg)](https://www.youtube.com/watch?v=ALl_-Kd7OM8)-->
 Video demo incoming</br>
