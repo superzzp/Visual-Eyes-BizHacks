@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B6166E4220D683C006EDA27 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6166E3220D683C006EDA27 /* StorageService.swift */; };
+		0B6166E6220D6914006EDA27 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6166E5220D6914006EDA27 /* UserService.swift */; };
+		0B6166E8220D6A09006EDA27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6166E7220D6A09006EDA27 /* LoginViewController.swift */; };
+		0B6166EA220D6A90006EDA27 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6166E9220D6A90006EDA27 /* User.swift */; };
 		0BF9B2CC22076CF400A3CDCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9B2CB22076CF400A3CDCF /* AppDelegate.swift */; };
 		0BF9B2CE22076CF400A3CDCF /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BF9B2CD22076CF400A3CDCF /* art.scnassets */; };
 		0BF9B2D022076CF400A3CDCF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9B2CF22076CF400A3CDCF /* ViewController.swift */; };
@@ -23,6 +27,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B6166E3220D683C006EDA27 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		0B6166E5220D6914006EDA27 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		0B6166E7220D6A09006EDA27 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0B6166E9220D6A90006EDA27 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0BF9B2C822076CF400A3CDCF /* VisualEyes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VisualEyes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF9B2CB22076CF400A3CDCF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BF9B2CD22076CF400A3CDCF /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -63,6 +71,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		0B6166E2220D67C9006EDA27 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0B6166E3220D683C006EDA27 /* StorageService.swift */,
+				0B6166E5220D6914006EDA27 /* UserService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		0BF9B2BF22076CF400A3CDCF = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +101,7 @@
 		0BF9B2CA22076CF400A3CDCF /* VisualEyes */ = {
 			isa = PBXGroup;
 			children = (
+				0B6166E2220D67C9006EDA27 /* Services */,
 				0BF9B2F02207791C00A3CDCF /* Supporting-files */,
 				0BF9B2EF2207790200A3CDCF /* Extensions */,
 				0BF9B2E222076D2A00A3CDCF /* Controller */,
@@ -101,6 +119,7 @@
 			children = (
 				0BF9B2ED220773E200A3CDCF /* UserData.swift */,
 				0BF9B2F3220C275F00A3CDCF /* UserSnapPos.swift */,
+				0B6166E9220D6A90006EDA27 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -119,6 +138,7 @@
 			children = (
 				0BF9B2CF22076CF400A3CDCF /* ViewController.swift */,
 				0BF9B2EB220773C300A3CDCF /* DataViewController.swift */,
+				0B6166E7220D6A09006EDA27 /* LoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -252,12 +272,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VisualEyes/Pods-VisualEyes-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAuthUI.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleMobileVision/GoogleMVFaceDetectorResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMVFaceDetectorResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,6 +303,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -294,6 +317,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,11 +334,15 @@
 			files = (
 				0BF9B2EC220773C300A3CDCF /* DataViewController.swift in Sources */,
 				0BF9B2D022076CF400A3CDCF /* ViewController.swift in Sources */,
+				0B6166E6220D6914006EDA27 /* UserService.swift in Sources */,
 				0BF9B2F4220C275F00A3CDCF /* UserSnapPos.swift in Sources */,
 				0BF9B2E6220772F300A3CDCF /* Extensions.swift in Sources */,
 				0BF9B2EE220773E200A3CDCF /* UserData.swift in Sources */,
+				0B6166E4220D683C006EDA27 /* StorageService.swift in Sources */,
 				0BF9B2CC22076CF400A3CDCF /* AppDelegate.swift in Sources */,
+				0B6166E8220D6A09006EDA27 /* LoginViewController.swift in Sources */,
 				0BF9B2F22207795600A3CDCF /* Constants.swift in Sources */,
+				0B6166EA220D6A90006EDA27 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

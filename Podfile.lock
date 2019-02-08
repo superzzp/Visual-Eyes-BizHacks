@@ -1,10 +1,16 @@
 PODS:
   - Alamofire (4.8.1)
+  - Firebase/Auth (5.16.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (= 5.3.0)
   - Firebase/Core (5.16.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.5.0)
   - Firebase/CoreOnly (5.16.0):
     - FirebaseCore (= 5.2.0)
+  - Firebase/Database (5.16.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (= 5.1.0)
   - Firebase/MLVision (5.16.0):
     - Firebase/CoreOnly
     - FirebaseMLVision (= 0.14.0)
@@ -23,9 +29,18 @@ PODS:
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
+  - FirebaseAuth (5.3.0):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 5.2)
+    - GoogleUtilities/Environment (~> 5.2)
+    - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseAuthInterop (1.0.0)
   - FirebaseCore (5.2.0):
     - GoogleUtilities/Logger (~> 5.2)
+  - FirebaseDatabase (5.1.0):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 5.2)
+    - leveldb-library (~> 1.18)
   - FirebaseInstanceID (3.4.0):
     - FirebaseCore (~> 5.2)
     - GoogleUtilities/Environment (~> 5.3)
@@ -47,6 +62,8 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.2)
     - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseUI/Auth (5.2.2):
+    - Firebase/Auth (~> 5.0)
   - GoogleAPIClientForREST/Core (1.3.8):
     - GTMSessionFetcher (>= 1.1.7)
   - GoogleAPIClientForREST/Vision (1.3.8):
@@ -93,6 +110,7 @@ PODS:
   - GTMSessionFetcher/Core (1.2.1)
   - GTMSessionFetcher/Full (1.2.1):
     - GTMSessionFetcher/Core (= 1.2.1)
+  - leveldb-library (1.20)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
@@ -103,10 +121,13 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Firebase/Auth
   - Firebase/Core
+  - Firebase/Database
   - Firebase/MLVision
   - Firebase/MLVisionFaceModel
   - Firebase/Storage
+  - FirebaseUI/Auth
   - SwiftyJSON
 
 SPEC REPOS:
@@ -114,19 +135,23 @@ SPEC REPOS:
     - Alamofire
     - Firebase
     - FirebaseAnalytics
+    - FirebaseAuth
     - FirebaseAuthInterop
     - FirebaseCore
+    - FirebaseDatabase
     - FirebaseInstanceID
     - FirebaseMLCommon
     - FirebaseMLVision
     - FirebaseMLVisionFaceModel
     - FirebaseStorage
+    - FirebaseUI
     - GoogleAPIClientForREST
     - GoogleAppMeasurement
     - GoogleMobileVision
     - GoogleToolboxForMac
     - GoogleUtilities
     - GTMSessionFetcher
+    - leveldb-library
     - nanopb
     - Protobuf
     - SwiftyJSON
@@ -135,23 +160,27 @@ SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   Firebase: 749a8ff4962f9d8c79dda1966de20f6f77583d67
   FirebaseAnalytics: d35d47c03c50c73c14a7fd31463c5775843e78a9
+  FirebaseAuth: c9b3ff063c223d2841d97240af547ce511bce19a
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: ea2d1816723ef21492b8e9113303e1350db5e08c
+  FirebaseDatabase: 23acb0c53cd4d4070a427b60100b2e4aaa97c45d
   FirebaseInstanceID: 97ea7a5dca9afd72c79bfcdddb7a44aa1cbb42a1
   FirebaseMLCommon: d8a789e36a7faa175b1a5d1139e7fc7323c8db7b
   FirebaseMLVision: 07c0da3ceaa5ecde621528a985748d6098a84388
   FirebaseMLVisionFaceModel: 8c80355e22cfcf100ad2ac9c618536d19daf266b
   FirebaseStorage: 29075f874c2b3cf61e5221a62c4ceefc809e5412
+  FirebaseUI: 09519bf436a055cd696bf68687d624423150e4c0
   GoogleAPIClientForREST: 5447a194eae517986cafe6421a5330b80b820591
   GoogleAppMeasurement: 621f3bc6211d5ba548debe01fafad30cf5ab6859
   GoogleMobileVision: a1f93108b3527d67339e2de80e1db76645f9e8b9
   GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
   GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
 
-PODFILE CHECKSUM: 7193d3473dd453a7b19a347bea2ba13640a95de2
+PODFILE CHECKSUM: 814697674dd858c967f8583ee22f5a80815137c0
 
 COCOAPODS: 1.5.3

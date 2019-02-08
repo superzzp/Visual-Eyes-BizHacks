@@ -11,7 +11,9 @@ target 'VisualEyes' do
   pod 'Firebase/Core'
   pod 'Firebase/MLVision'
   pod 'Firebase/MLVisionFaceModel'
-  pod 'Firebase/Core'
-  pod 'Firebase/Storage'
+  pod 'Firebase/Storage'  
+  pod 'Firebase/Auth'
+  pod 'FirebaseUI/Auth'
+  pod 'Firebase/Database'
 
 end

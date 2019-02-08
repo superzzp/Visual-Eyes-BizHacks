@@ -94,7 +94,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
         webView.load(URLRequest(url: URL(string: Constants.BestBuy.ONLINESTOREURL)!))
         
         // setup the timer
-        scheduledTimerWithTimeInterval()
+        //scheduledTimerWithTimeInterval()
         
         // Set the view's delegate
         sceneView.delegate = self
@@ -228,7 +228,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
     
     
     func scheduledTimerWithTimeInterval(){
-        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
+        // Scheduling timer to Call the function "updateCounting" with the interval of 5 seconds
         timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: Selector("updateCounting"), userInfo: nil, repeats: true)
     }
     
@@ -240,85 +240,92 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
         snapShotCurrentUserFace()
     }
     
-    func analyzeUserFace() {
-        
-    }
     
     func snapShotCurrentUserFace() {
         let image = self.sceneView.snapshot()
         print(image)
-        uiImagetoURL(image: image)
-    }
-    
-    
-    func uiImagetoURL (image: UIImage) {
-        let imageData = image.jpegData(compressionQuality: 0.8)
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let fileURL = documentsURL.appendingPathComponent("tempImage.jpg")
-        print(fileURL)
-        try? imageData?.write(to: fileURL, options: [])
-        
-        getImageData(url1: fileURL)
-    }
-    
-    func getImageData(url1: URL) {
-        var downloadURL1: URL?
         let storage = Storage.storage()
         let storageRef = storage.reference()
-        let mountainsRef = storageRef.child("images/mountains.jpg")
-        let localFile = url1
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-        // Upload file and metadata
-        let uploadTask = mountainsRef.putFile(from: localFile, metadata: nil) { metadata, error in
-            guard let metadata = metadata else {
-                // Uh-oh, an error occurred!
-                print(error.debugDescription)
-                return
-                
-            }
-            // Metadata contains file metadata such as size, content-type.
-            let size = metadata.size
-            
-            // You can also access to download URL after upload.
-            mountainsRef.downloadURL { (url, error) in
-                guard let downloadURL = url else {
-                    // Uh-oh, an error occurred!
-                    print(error.debugDescription)
-                    
-                    return
-                }
-                print("====download url of the image============line 274")
-                print(downloadURL)
-                downloadURL1 = downloadURL
-                
-                
-                let headers: HTTPHeaders = [
-                    "Content-Type" : "application/json",
-                    "Ocp-Apim-Subscription-Key": Constants.Azure.SUBSCRIPTIONKEY,
-                    ]
-                print(downloadURL1?.absoluteString)
-                //some parameters included in Constants.Azure.AZUREURL
-                let parameters: Parameters = [
-                    //            "returnFaceId":true,
-                    //            "returnFaceLandmarks": false,
-                    //            "returnFaceAttributes": "age, gender, emotion, hair, makeup, occlusion, accessories, blur",
-                    "url" : downloadURL1?.absoluteString
-                ]
-                
-                Alamofire.request(self.azureURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
-                    if response.result.isSuccess {
-                        print("successfully get JSON data!")
-                        let jso: JSON = JSON(response.result.value!)
-                        //print out the returned json for testing
-                        print(jso)
-                        self.updateUserData(json: jso)
-                    }else{
-                        print("fail to get JSON response!")
-                        DispatchQueue.main.async {
-                            self.navigationItem.title = "Fail to get image infomation"
-                        }
-                    }
+        let facePicsRef = storageRef.child("images/facePhoto.jpg")
+        StorageService.uploadImage(image, at: facePicsRef) { url in
+            self.azureFaceAnalysis(facePicsUrl: url)
+        }
+        
+        //uiImagetoURL(image: image)
+    }
+    
+    
+//    func uiImagetoURL (image: UIImage) {
+//        let imageData = image.jpegData(compressionQuality: 0.8)
+//        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+//        let fileURL = documentsURL.appendingPathComponent("tempImage.jpg")
+//        print(fileURL)
+//        try? imageData?.write(to: fileURL, options: [])
+//
+//        getImageData(url1: fileURL)
+//    }
+//
+//    func getImageData(url1: URL) {
+//        var downloadURL1: URL?
+//        let storage = Storage.storage()
+//        let storageRef = storage.reference()
+//        let mountainsRef = storageRef.child("images/mountains.jpg")
+//        let localFile = url1
+//        let metadata = StorageMetadata()
+//        metadata.contentType = "image/jpeg"
+//        // Upload file and metadata
+//        let uploadTask = mountainsRef.putFile(from: localFile, metadata: nil) { metadata, error in
+//            guard let metadata = metadata else {
+//                // Uh-oh, an error occurred!
+//                print(error.debugDescription)
+//                return
+//
+//            }
+//            // Metadata contains file metadata such as size, content-type.
+//            let size = metadata.size
+//
+//            // You can also access to download URL after upload.
+//            mountainsRef.downloadURL { (url, error) in
+//                guard let downloadURL = url else {
+//                    // Uh-oh, an error occurred!
+//                    print(error.debugDescription)
+//
+//                    return
+//                }
+//                print("====download url of the image============line 274")
+//                print(downloadURL)
+//                self.azureFaceAnalysis(facePicsUrl: downloadURL)
+//
+//
+//            }
+//        }
+//    }
+    
+    func azureFaceAnalysis (facePicsUrl: URL?) {
+        let headers: HTTPHeaders = [
+            "Content-Type" : "application/json",
+            "Ocp-Apim-Subscription-Key": Constants.Azure.SUBSCRIPTIONKEY,
+            ]
+        print(facePicsUrl?.absoluteString)
+        //some parameters included in Constants.Azure.AZUREURL
+        let parameters: Parameters = [
+            //            "returnFaceId":true,
+            //            "returnFaceLandmarks": false,
+            //            "returnFaceAttributes": "age, gender, emotion, hair, makeup, occlusion, accessories, blur",
+            "url" : facePicsUrl?.absoluteString
+        ]
+        
+        Alamofire.request(self.azureURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
+            if response.result.isSuccess {
+                print("successfully get JSON data!")
+                let jso: JSON = JSON(response.result.value!)
+                //print out the returned json for testing
+                print(jso)
+                self.updateUserData(json: jso)
+            }else{
+                print("fail to get JSON response!")
+                DispatchQueue.main.async {
+                    self.navigationItem.title = "Fail to get image infomation"
                 }
             }
         }
