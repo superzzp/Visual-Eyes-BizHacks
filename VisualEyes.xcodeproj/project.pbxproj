@@ -18,6 +18,7 @@
 		0BF9B2EC220773C300A3CDCF /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9B2EB220773C300A3CDCF /* DataViewController.swift */; };
 		0BF9B2EE220773E200A3CDCF /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9B2ED220773E200A3CDCF /* UserData.swift */; };
 		0BF9B2F22207795600A3CDCF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9B2F12207795600A3CDCF /* Constants.swift */; };
+		0BF9B2F4220C275F00A3CDCF /* UserSnapPos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9B2F3220C275F00A3CDCF /* UserSnapPos.swift */; };
 		2DCD06BA50953DDDDE3EDDA2 /* Pods_VisualEyes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 437902C14C559B0E30A0F1FF /* Pods_VisualEyes.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		0BF9B2EB220773C300A3CDCF /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		0BF9B2ED220773E200A3CDCF /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		0BF9B2F12207795600A3CDCF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0BF9B2F3220C275F00A3CDCF /* UserSnapPos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSnapPos.swift; sourceTree = "<group>"; };
 		437902C14C559B0E30A0F1FF /* Pods_VisualEyes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VisualEyes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0853EB2C3FF4C845DA3BBB9 /* Pods-VisualEyes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VisualEyes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VisualEyes/Pods-VisualEyes.debug.xcconfig"; sourceTree = "<group>"; };
 		E3DFC43421D8D9527BD0FA10 /* Pods-VisualEyes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VisualEyes.release.xcconfig"; path = "Pods/Target Support Files/Pods-VisualEyes/Pods-VisualEyes.release.xcconfig"; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				0BF9B2ED220773E200A3CDCF /* UserData.swift */,
+				0BF9B2F3220C275F00A3CDCF /* UserSnapPos.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 			files = (
 				0BF9B2EC220773C300A3CDCF /* DataViewController.swift in Sources */,
 				0BF9B2D022076CF400A3CDCF /* ViewController.swift in Sources */,
+				0BF9B2F4220C275F00A3CDCF /* UserSnapPos.swift in Sources */,
 				0BF9B2E6220772F300A3CDCF /* Extensions.swift in Sources */,
 				0BF9B2EE220773E200A3CDCF /* UserData.swift in Sources */,
 				0BF9B2CC22076CF400A3CDCF /* AppDelegate.swift in Sources */,

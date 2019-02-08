@@ -27,12 +27,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var analysisButton: UIButton!
     
-    let phoneWidth = 834 * 3;
-    let phoneHeight = 1112 * 3;
-    var m_data : [UInt8] = [UInt8](repeating: 0, count: 834*3 * 1112*3)
     let azureURL: String = Constants.Azure.AZUREURL
     var faceNode: SCNNode = SCNNode()
     var testlink: String = "https://cdn.images.express.co.uk/img/dynamic/galleries/x701/389530.jpg"
+
+    var timer = Timer()
+    var userDataArray: [UserData] = []
     var userDataModel = UserData()
     
     var eyeLNode: SCNNode = {
@@ -64,10 +64,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
     var lookAtTargetEyeLNode: SCNNode = SCNNode()
     var lookAtTargetEyeRNode: SCNNode = SCNNode()
     
-    // actual physical size of iPhoneX screen
+    // actual physical size of ipad pro 11 screen
     let phoneScreenSize = CGSize(width: 0.178, height: 0.247)
     
-    // actual point size of iPhoneX screen
+    // actual point size of ipad pro 11 screen
     let phoneScreenPointSize = CGSize(width: 834, height: 1112)
     
     var virtualPhoneNode: SCNNode = SCNNode()
@@ -89,21 +89,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
     }
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        navigationController?.delegate = self
         initializeDesigns()
         webView.load(URLRequest(url: URL(string: Constants.BestBuy.ONLINESTOREURL)!))
         
-        // Setup Design Elements
-        eyePositionIndicatorView.layer.cornerRadius = eyePositionIndicatorView.bounds.width / 2
-        sceneView.layer.cornerRadius = 28
-        eyePositionIndicatorCenterView.layer.cornerRadius = 4
-        
-        blurBarView.layer.cornerRadius = 36
-        blurBarView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        webView.layer.cornerRadius = 16
-        webView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        // setup the timer
+        scheduledTimerWithTimeInterval()
         
         // Set the view's delegate
         sceneView.delegate = self
@@ -125,6 +116,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
     }
     
     func initializeDesigns() {
+        // Setup Design Elements
+        eyePositionIndicatorView.layer.cornerRadius = eyePositionIndicatorView.bounds.width / 2
+        sceneView.layer.cornerRadius = 28
+        eyePositionIndicatorCenterView.layer.cornerRadius = 4
+        
+        blurBarView.layer.cornerRadius = 36
+        blurBarView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        webView.layer.cornerRadius = 16
+        webView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
         analysisButton.layer.cornerRadius = 5
         analysisButton.layer.borderWidth = 1
         
@@ -155,7 +156,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
         
         faceNode.transform = node.transform
         guard let faceAnchor = anchor as? ARFaceAnchor else { return }
-        
         update(withFaceAnchor: faceAnchor)
     }
     
@@ -170,7 +170,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
         var eyeRLookAt = CGPoint()
         
         
-        let heightCompensation: CGFloat = 312
+        let heightCompensation: CGFloat = 614
         
         DispatchQueue.main.async {
             
@@ -194,7 +194,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
                 eyeLLookAt.y = CGFloat(result.localCoordinates.y) / (self.phoneScreenSize.height / 2) * self.phoneScreenPointSize.height + heightCompensation
             }
             
-            // Add the latest position and keep up to 8 recent position to smooth with.
+            // Add the latest position and keep up to 10 recent position to smooth with.
             let smoothThresholdNumber: Int = 10
             self.eyeLookAtPositionXs.append((eyeRLookAt.x + eyeLLookAt.x) / 2)
             self.eyeLookAtPositionYs.append(-(eyeRLookAt.y + eyeLLookAt.y) / 2)
@@ -221,14 +221,27 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
             
             // Update distance label value
             self.distanceLabel.text = "\(Int(round(distance * 100))) cm"
-            
-            
         }
+        
+    }
+    
+    
+    
+    func scheduledTimerWithTimeInterval(){
+        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: Selector("updateCounting"), userInfo: nil, repeats: true)
+    }
+    
+    func updateCounting(){
         
     }
     
     @IBAction func buttonPressssed(_ sender: UIButton){
         snapShotCurrentUserFace()
+    }
+    
+    func analyzeUserFace() {
+        
     }
     
     func snapShotCurrentUserFace() {
@@ -249,8 +262,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
     }
     
     func getImageData(url1: URL) {
-        //        let config = CLDConfiguration(cloudName: "CLOUD_NAME", secure: "true")
-        //        let cloudinary = CLDCloudinary(configuration: config)
         var downloadURL1: URL?
         let storage = Storage.storage()
         let storageRef = storage.reference()

@@ -10,6 +10,8 @@ import Foundation
 
 class UserData {
     
+    
+    
     var fear : Double
     var happiness : Double
     var contempt : Double
@@ -24,6 +26,7 @@ class UserData {
     
     
     init() {
+        
         fear = 0.0
         happiness = 0.0
         contempt = 0.0
