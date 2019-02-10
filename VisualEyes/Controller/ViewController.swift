@@ -252,7 +252,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
 //            self.azureFaceAnalysis(facePicsUrl: url)
 //        }
         UploadService.create(for: image) { url in
-            self.azureFaceAnalysis(facePicsUrl: url)
+            //self.azureFaceAnalysis(facePicsUrl: url)
+            
+            
         }
         //uiImagetoURL(image: image)
     }
@@ -304,48 +306,49 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
 //        }
 //    }
     
-    func azureFaceAnalysis (facePicsUrl: URL?) {
-        let headers: HTTPHeaders = [
-            "Content-Type" : "application/json",
-            "Ocp-Apim-Subscription-Key": Constants.Azure.SUBSCRIPTIONKEY,
-            ]
-        print(facePicsUrl?.absoluteString)
-        //some parameters included in Constants.Azure.AZUREURL
-        let parameters: Parameters = [
-            //            "returnFaceId":true,
-            //            "returnFaceLandmarks": false,
-            //            "returnFaceAttributes": "age, gender, emotion, hair, makeup, occlusion, accessories, blur",
-            "url" : facePicsUrl?.absoluteString
-        ]
-        
-        Alamofire.request(self.azureURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
-            if response.result.isSuccess {
-                print("successfully get JSON data!")
-                let jso: JSON = JSON(response.result.value!)
-                //print out the returned json for testing
-                print(jso)
-                self.updateUserData(json: jso)
-            }else{
-                print("fail to get JSON response!")
-                DispatchQueue.main.async {
-                    self.navigationItem.title = "Fail to get image infomation"
-                }
-            }
-        }
-    }
+//    func azureFaceAnalysis (facePicsUrl: URL?) {
+//        let headers: HTTPHeaders = [
+//            "Content-Type" : "application/json",
+//            "Ocp-Apim-Subscription-Key": Constants.Azure.SUBSCRIPTIONKEY,
+//            ]
+//        print(facePicsUrl?.absoluteString)
+//        //some parameters included in Constants.Azure.AZUREURL
+//        let parameters: Parameters = [
+//            //            "returnFaceId":true,
+//            //            "returnFaceLandmarks": false,
+//            //            "returnFaceAttributes": "age, gender, emotion, hair, makeup, occlusion, accessories, blur",
+//            "url" : facePicsUrl?.absoluteString
+//        ]
+//
+//        Alamofire.request(self.azureURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
+//            if response.result.isSuccess {
+//                print("successfully get JSON data!")
+//                let jso: JSON = JSON(response.result.value!)
+//                //print out the returned json for testing
+//                print(jso)
+//
+//                //self.updateUserData(json: jso)
+//            }else{
+//                print("fail to get JSON response!")
+//                DispatchQueue.main.async {
+//                    self.navigationItem.title = "Fail to get image infomation"
+//                }
+//            }
+//        }
+//    }
     
-    func updateUserData (json: JSON) {
-        self.userDataModel.age = json[0]["faceAttributes"]["age"].intValue
-        self.userDataModel.gender = json[0]["faceAttributes"]["gender"].stringValue
-        self.userDataModel.neutral = json[0]["faceAttributes"]["emotion"]["neutral"].doubleValue
-        self.userDataModel.happiness = json[0]["faceAttributes"]["emotion"]["happiness"].doubleValue
-        self.userDataModel.anger = json[0]["faceAttributes"]["emotion"]["anger"].doubleValue
-        self.userDataModel.disgust = json[0]["faceAttributes"]["emotion"]["disgust"].doubleValue
-        self.userDataModel.fear = json[0]["faceAttributes"]["emotion"]["fear"].doubleValue
-        self.userDataModel.sadness = json[0]["faceAttributes"]["emotion"]["sadness"].doubleValue
-        self.userDataModel.contempt = json[0]["faceAttributes"]["emotion"]["contempt"].doubleValue
-        self.userDataModel.surprise = json[0]["faceAttributes"]["emotion"]["surprise"].doubleValue
-    }
+//    func updateUserData (json: JSON) {
+//        self.userDataModel.age = json[0]["faceAttributes"]["age"].intValue
+//        self.userDataModel.gender = json[0]["faceAttributes"]["gender"].stringValue
+//        self.userDataModel.neutral = json[0]["faceAttributes"]["emotion"]["neutral"].doubleValue
+//        self.userDataModel.happiness = json[0]["faceAttributes"]["emotion"]["happiness"].doubleValue
+//        self.userDataModel.anger = json[0]["faceAttributes"]["emotion"]["anger"].doubleValue
+//        self.userDataModel.disgust = json[0]["faceAttributes"]["emotion"]["disgust"].doubleValue
+//        self.userDataModel.fear = json[0]["faceAttributes"]["emotion"]["fear"].doubleValue
+//        self.userDataModel.sadness = json[0]["faceAttributes"]["emotion"]["sadness"].doubleValue
+//        self.userDataModel.contempt = json[0]["faceAttributes"]["emotion"]["contempt"].doubleValue
+//        self.userDataModel.surprise = json[0]["faceAttributes"]["emotion"]["surprise"].doubleValue
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "toData") {

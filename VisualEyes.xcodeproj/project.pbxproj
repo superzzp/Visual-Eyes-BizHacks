@@ -11,6 +11,9 @@
 		0B2DB115220FF3320092F828 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B2DB114220FF3320092F828 /* Login.storyboard */; };
 		0B2DB1172210033F0092F828 /* UploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DB1162210033F0092F828 /* UploadService.swift */; };
 		0B2DB119221008240092F828 /* CreateUserNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DB118221008240092F828 /* CreateUserNameViewController.swift */; };
+		0B2DB11B2210CD970092F828 /* AzureCognitiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DB11A2210CD970092F828 /* AzureCognitiveService.swift */; };
+		0B2DB11D2210E2C50092F828 /* UIImage+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DB11C2210E2C50092F828 /* UIImage+Size.swift */; };
+		0B2DB11F2210E5140092F828 /* StorageReference+Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DB11E2210E5140092F828 /* StorageReference+Post.swift */; };
 		0B6166E4220D683C006EDA27 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6166E3220D683C006EDA27 /* StorageService.swift */; };
 		0B6166E6220D6914006EDA27 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6166E5220D6914006EDA27 /* UserService.swift */; };
 		0B6166E8220D6A09006EDA27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6166E7220D6A09006EDA27 /* LoginViewController.swift */; };
@@ -35,6 +38,9 @@
 		0B2DB114220FF3320092F828 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		0B2DB1162210033F0092F828 /* UploadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadService.swift; sourceTree = "<group>"; };
 		0B2DB118221008240092F828 /* CreateUserNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserNameViewController.swift; sourceTree = "<group>"; };
+		0B2DB11A2210CD970092F828 /* AzureCognitiveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AzureCognitiveService.swift; sourceTree = "<group>"; };
+		0B2DB11C2210E2C50092F828 /* UIImage+Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Size.swift"; sourceTree = "<group>"; };
+		0B2DB11E2210E5140092F828 /* StorageReference+Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageReference+Post.swift"; sourceTree = "<group>"; };
 		0B6166E3220D683C006EDA27 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		0B6166E5220D6914006EDA27 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		0B6166E7220D6A09006EDA27 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +91,7 @@
 				0B6166E3220D683C006EDA27 /* StorageService.swift */,
 				0B6166E5220D6914006EDA27 /* UserService.swift */,
 				0B2DB1162210033F0092F828 /* UploadService.swift */,
+				0B2DB11A2210CD970092F828 /* AzureCognitiveService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -159,6 +166,8 @@
 			children = (
 				0BF9B2E5220772F300A3CDCF /* Extensions.swift */,
 				0B2DB112220FF2BA0092F828 /* Storyboard+Utility.swift */,
+				0B2DB11C2210E2C50092F828 /* UIImage+Size.swift */,
+				0B2DB11E2210E5140092F828 /* StorageReference+Post.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -349,8 +358,11 @@
 				0BF9B2D022076CF400A3CDCF /* ViewController.swift in Sources */,
 				0B2DB119221008240092F828 /* CreateUserNameViewController.swift in Sources */,
 				0B6166E6220D6914006EDA27 /* UserService.swift in Sources */,
+				0B2DB11D2210E2C50092F828 /* UIImage+Size.swift in Sources */,
 				0B2DB113220FF2BA0092F828 /* Storyboard+Utility.swift in Sources */,
+				0B2DB11B2210CD970092F828 /* AzureCognitiveService.swift in Sources */,
 				0BF9B2F4220C275F00A3CDCF /* UserSnapPos.swift in Sources */,
+				0B2DB11F2210E5140092F828 /* StorageReference+Post.swift in Sources */,
 				0BF9B2E6220772F300A3CDCF /* Extensions.swift in Sources */,
 				0BF9B2EE220773E200A3CDCF /* UserData.swift in Sources */,
 				0B6166E4220D683C006EDA27 /* StorageService.swift in Sources */,
