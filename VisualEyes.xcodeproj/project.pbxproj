@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B2DB113220FF2BA0092F828 /* Storyboard+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DB112220FF2BA0092F828 /* Storyboard+Utility.swift */; };
+		0B2DB115220FF3320092F828 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B2DB114220FF3320092F828 /* Login.storyboard */; };
+		0B2DB1172210033F0092F828 /* UploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DB1162210033F0092F828 /* UploadService.swift */; };
+		0B2DB119221008240092F828 /* CreateUserNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2DB118221008240092F828 /* CreateUserNameViewController.swift */; };
 		0B6166E4220D683C006EDA27 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6166E3220D683C006EDA27 /* StorageService.swift */; };
 		0B6166E6220D6914006EDA27 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6166E5220D6914006EDA27 /* UserService.swift */; };
 		0B6166E8220D6A09006EDA27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6166E7220D6A09006EDA27 /* LoginViewController.swift */; };
@@ -27,6 +31,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B2DB112220FF2BA0092F828 /* Storyboard+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Storyboard+Utility.swift"; sourceTree = "<group>"; };
+		0B2DB114220FF3320092F828 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		0B2DB1162210033F0092F828 /* UploadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadService.swift; sourceTree = "<group>"; };
+		0B2DB118221008240092F828 /* CreateUserNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserNameViewController.swift; sourceTree = "<group>"; };
 		0B6166E3220D683C006EDA27 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		0B6166E5220D6914006EDA27 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		0B6166E7220D6A09006EDA27 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +84,7 @@
 			children = (
 				0B6166E3220D683C006EDA27 /* StorageService.swift */,
 				0B6166E5220D6914006EDA27 /* UserService.swift */,
+				0B2DB1162210033F0092F828 /* UploadService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -129,6 +138,7 @@
 			children = (
 				0BF9B2E92207735B00A3CDCF /* LaunchScreen.storyboard */,
 				0BF9B2E72207733A00A3CDCF /* Main.storyboard */,
+				0B2DB114220FF3320092F828 /* Login.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -139,6 +149,7 @@
 				0BF9B2CF22076CF400A3CDCF /* ViewController.swift */,
 				0BF9B2EB220773C300A3CDCF /* DataViewController.swift */,
 				0B6166E7220D6A09006EDA27 /* LoginViewController.swift */,
+				0B2DB118221008240092F828 /* CreateUserNameViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -147,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				0BF9B2E5220772F300A3CDCF /* Extensions.swift */,
+				0B2DB112220FF2BA0092F828 /* Storyboard+Utility.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -232,6 +244,7 @@
 			files = (
 				0BF9B2CE22076CF400A3CDCF /* art.scnassets in Resources */,
 				0BF9B2E42207721B00A3CDCF /* GoogleService-Info.plist in Resources */,
+				0B2DB115220FF3320092F828 /* Login.storyboard in Resources */,
 				0BF9B2EA2207735B00A3CDCF /* LaunchScreen.storyboard in Resources */,
 				0BF9B2E82207733A00A3CDCF /* Main.storyboard in Resources */,
 				0BF9B2D522076CF500A3CDCF /* Assets.xcassets in Resources */,
@@ -334,13 +347,16 @@
 			files = (
 				0BF9B2EC220773C300A3CDCF /* DataViewController.swift in Sources */,
 				0BF9B2D022076CF400A3CDCF /* ViewController.swift in Sources */,
+				0B2DB119221008240092F828 /* CreateUserNameViewController.swift in Sources */,
 				0B6166E6220D6914006EDA27 /* UserService.swift in Sources */,
+				0B2DB113220FF2BA0092F828 /* Storyboard+Utility.swift in Sources */,
 				0BF9B2F4220C275F00A3CDCF /* UserSnapPos.swift in Sources */,
 				0BF9B2E6220772F300A3CDCF /* Extensions.swift in Sources */,
 				0BF9B2EE220773E200A3CDCF /* UserData.swift in Sources */,
 				0B6166E4220D683C006EDA27 /* StorageService.swift in Sources */,
 				0BF9B2CC22076CF400A3CDCF /* AppDelegate.swift in Sources */,
 				0B6166E8220D6A09006EDA27 /* LoginViewController.swift in Sources */,
+				0B2DB1172210033F0092F828 /* UploadService.swift in Sources */,
 				0BF9B2F22207795600A3CDCF /* Constants.swift in Sources */,
 				0B6166EA220D6A90006EDA27 /* User.swift in Sources */,
 			);

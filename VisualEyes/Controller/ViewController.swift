@@ -129,6 +129,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
         analysisButton.layer.cornerRadius = 5
         analysisButton.layer.borderWidth = 1
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -244,13 +245,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
     func snapShotCurrentUserFace() {
         let image = self.sceneView.snapshot()
         print(image)
-        let storage = Storage.storage()
-        let storageRef = storage.reference()
-        let facePicsRef = storageRef.child("images/facePhoto.jpg")
-        StorageService.uploadImage(image, at: facePicsRef) { url in
+//        let storage = Storage.storage()
+//        let storageRef = storage.reference()
+//        let facePicsRef = storageRef.child("images/facePhoto.jpg")
+//        StorageService.uploadImage(image, at: facePicsRef) { url in
+//            self.azureFaceAnalysis(facePicsUrl: url)
+//        }
+        UploadService.create(for: image) { url in
             self.azureFaceAnalysis(facePicsUrl: url)
         }
-        
         //uiImagetoURL(image: image)
     }
     

@@ -7,11 +7,17 @@
 //
 
 import Foundation
+import UIKit
 
 class UserData {
+    //image of user
+    let imageURL: String
+    let imageHeight: CGFloat
     
+    //information gathering date
+    let creationDate: Date
     
-    
+    //emotion data
     var fear : Double
     var happiness : Double
     var contempt : Double
@@ -21,12 +27,17 @@ class UserData {
     var anger : Double
     var neutral : Double
     var smile : Double
+    
+    //gender and age prediction
     var gender: String
     var age : Int
     
     
     init() {
         
+        imageURL = ""
+        imageHeight = CGFloat()
+        creationDate = Date()
         fear = 0.0
         happiness = 0.0
         contempt = 0.0
@@ -36,7 +47,6 @@ class UserData {
         anger = 0.0
         neutral = 0.0
         smile = 0.0
-        
         gender = ""
         age = 0
     }
