@@ -24,7 +24,7 @@ struct UploadService {
                 return completion(nil)
             }
             
-//            let urlString = downloadURL.absoluteString
+            let urlString = downloadURL.absoluteString
             
             //print("image url: \(urlString)")
             print("successfully returned downloadURL in Upload Service")

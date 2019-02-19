@@ -31,6 +31,22 @@
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="KW7-5O-3pA">
                                     <rect key="frame" x="0.0" y="0.0" width="834" height="160"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="remaining time:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcX-W3-o2l">
+                                            <rect key="frame" x="24" y="116" width="110" height="19"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZXc-H7-iBQ">
+                                            <rect key="frame" x="138" y="116" width="80" height="19"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </view>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="dF0-1e-9bJ"/>
@@ -170,7 +186,6 @@ Position Estimation</string>
                                 <state key="normal" title="Analysis"/>
                                 <connections>
                                     <action selector="buttonPressssed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Z0Y-LP-X3o"/>
-                                    <segue destination="t9D-HY-lDg" kind="show" identifier="toData" id="q19-jS-pzB"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -211,6 +226,7 @@ Position Estimation</string>
                         <outlet property="lookAtPositionXLabel" destination="zjQ-Le-hMK" id="SFk-Hq-X2t"/>
                         <outlet property="lookAtPositionYLabel" destination="5nW-i0-8sr" id="dIT-1O-eR5"/>
                         <outlet property="sceneView" destination="W9c-Gg-veJ" id="MwD-uf-Osc"/>
+                        <outlet property="timeLabel" destination="ZXc-H7-iBQ" id="RMG-7n-f6V"/>
                         <outlet property="webView" destination="saK-eH-dzW" id="phT-GD-Fie"/>
                     </connections>
                 </viewController>
@@ -230,18 +246,37 @@ Position Estimation</string>
                                 <rect key="frame" x="-567" y="182" width="1969" height="831"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4U2-hh-agg">
+                                <rect key="frame" x="353" y="949" width="140" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="New Session">
+                                    <color key="titleColor" red="0.080912403760000001" green="0.224068135" blue="0.37648987769999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BV1-FR-VrT" kind="show" id="kSs-WJ-qqk"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="microsoft_simple_logo" translatesAutoresizingMaskIntoConstraints="NO" id="77w-s3-8yt">
+                                <rect key="frame" x="272" y="182" width="303" height="176"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.36482924222946167" green="0.38796275854110718" blue="0.40392479300498962" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="1gT-Ar-DW6"/>
                     </view>
+                    <connections>
+                        <outlet property="newSessionButton" destination="4U2-hh-agg" id="LYX-yr-Euh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7U5-7S-Tg1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="780.57553956834533" y="45.7286432160804"/>
+            <point key="canvasLocation" x="798.56115107913672" y="45.7286432160804"/>
         </scene>
     </scenes>
     <resources>
         <image name="certificate" width="1296" height="1728"/>
+        <image name="microsoft_simple_logo" width="500" height="500"/>
         <image name="tab_home_black" width="25" height="25"/>
     </resources>
 </document>

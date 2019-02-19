@@ -25,15 +25,31 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
     @IBOutlet weak var lookAtPositionXLabel: UILabel!
     @IBOutlet weak var lookAtPositionYLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var analysisButton: UIButton!
+    
+    
+    
     
     let azureURL: String = Constants.Azure.AZUREURL
     var faceNode: SCNNode = SCNNode()
     var testlink: String = "https://cdn.images.express.co.uk/img/dynamic/galleries/x701/389530.jpg"
-
-    var timer = Timer()
-    var userDataArray: [UserData] = []
+    
+    // create an userDataModel instance for uploading to firebase
     var userDataModel = UserData()
+    
+    var startInt = 4
+    
+    var sessionInt = 60
+    
+    //timer for time indicator
+    var analysisButtonPressed: Bool = false
+    var clockUpdateTime: TimeInterval = 0
+    
+    //timer for running the analysis session
+    var analysisSessionRunning: Bool = false
+    var analysisPerformTime: TimeInterval = 0
+    
     
     var eyeLNode: SCNNode = {
         let geometry = SCNCone(topRadius: 0.005, bottomRadius: 0, height: 0.2)
@@ -91,7 +107,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeDesigns()
-        webView.load(URLRequest(url: URL(string: Constants.BestBuy.ONLINESTOREURL)!))
+        webView.load(URLRequest(url: URL(string: Constants.Microsoft.ONLINESTOREURL)!))
         
         // setup the timer
         //scheduledTimerWithTimeInterval()
@@ -223,132 +239,30 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
             // Update distance label value
             self.distanceLabel.text = "\(Int(round(distance * 100))) cm"
         }
-        
     }
-    
-    
-    
-    func scheduledTimerWithTimeInterval(){
-        // Scheduling timer to Call the function "updateCounting" with the interval of 5 seconds
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: Selector("updateCounting"), userInfo: nil, repeats: true)
-    }
-    
-    func updateCounting(){
-        
-    }
+
     
     @IBAction func buttonPressssed(_ sender: UIButton){
-        snapShotCurrentUserFace()
+       analysisButton.isEnabled = false
+       analysisButtonPressed = true
+        
+//        DispatchQueue.main.async {
+//            self.startTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.startAnalysisSessionTimer), userInfo: nil, repeats: true)
+//        }
+        
+        //snapShotCurrentUserFace()
     }
     
     
-    func snapShotCurrentUserFace() {
+    func analyzeCurrentUserFace() {
         let image = self.sceneView.snapshot()
         print(image)
-//        let storage = Storage.storage()
-//        let storageRef = storage.reference()
-//        let facePicsRef = storageRef.child("images/facePhoto.jpg")
-//        StorageService.uploadImage(image, at: facePicsRef) { url in
-//            self.azureFaceAnalysis(facePicsUrl: url)
-//        }
+        //unnecessary event handeler
+        //remove later
         UploadService.create(for: image) { url in
-            //self.azureFaceAnalysis(facePicsUrl: url)
-            
-            
+
         }
-        //uiImagetoURL(image: image)
     }
-    
-    
-//    func uiImagetoURL (image: UIImage) {
-//        let imageData = image.jpegData(compressionQuality: 0.8)
-//        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-//        let fileURL = documentsURL.appendingPathComponent("tempImage.jpg")
-//        print(fileURL)
-//        try? imageData?.write(to: fileURL, options: [])
-//
-//        getImageData(url1: fileURL)
-//    }
-//
-//    func getImageData(url1: URL) {
-//        var downloadURL1: URL?
-//        let storage = Storage.storage()
-//        let storageRef = storage.reference()
-//        let mountainsRef = storageRef.child("images/mountains.jpg")
-//        let localFile = url1
-//        let metadata = StorageMetadata()
-//        metadata.contentType = "image/jpeg"
-//        // Upload file and metadata
-//        let uploadTask = mountainsRef.putFile(from: localFile, metadata: nil) { metadata, error in
-//            guard let metadata = metadata else {
-//                // Uh-oh, an error occurred!
-//                print(error.debugDescription)
-//                return
-//
-//            }
-//            // Metadata contains file metadata such as size, content-type.
-//            let size = metadata.size
-//
-//            // You can also access to download URL after upload.
-//            mountainsRef.downloadURL { (url, error) in
-//                guard let downloadURL = url else {
-//                    // Uh-oh, an error occurred!
-//                    print(error.debugDescription)
-//
-//                    return
-//                }
-//                print("====download url of the image============line 274")
-//                print(downloadURL)
-//                self.azureFaceAnalysis(facePicsUrl: downloadURL)
-//
-//
-//            }
-//        }
-//    }
-    
-//    func azureFaceAnalysis (facePicsUrl: URL?) {
-//        let headers: HTTPHeaders = [
-//            "Content-Type" : "application/json",
-//            "Ocp-Apim-Subscription-Key": Constants.Azure.SUBSCRIPTIONKEY,
-//            ]
-//        print(facePicsUrl?.absoluteString)
-//        //some parameters included in Constants.Azure.AZUREURL
-//        let parameters: Parameters = [
-//            //            "returnFaceId":true,
-//            //            "returnFaceLandmarks": false,
-//            //            "returnFaceAttributes": "age, gender, emotion, hair, makeup, occlusion, accessories, blur",
-//            "url" : facePicsUrl?.absoluteString
-//        ]
-//
-//        Alamofire.request(self.azureURL, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON { response in
-//            if response.result.isSuccess {
-//                print("successfully get JSON data!")
-//                let jso: JSON = JSON(response.result.value!)
-//                //print out the returned json for testing
-//                print(jso)
-//
-//                //self.updateUserData(json: jso)
-//            }else{
-//                print("fail to get JSON response!")
-//                DispatchQueue.main.async {
-//                    self.navigationItem.title = "Fail to get image infomation"
-//                }
-//            }
-//        }
-//    }
-    
-//    func updateUserData (json: JSON) {
-//        self.userDataModel.age = json[0]["faceAttributes"]["age"].intValue
-//        self.userDataModel.gender = json[0]["faceAttributes"]["gender"].stringValue
-//        self.userDataModel.neutral = json[0]["faceAttributes"]["emotion"]["neutral"].doubleValue
-//        self.userDataModel.happiness = json[0]["faceAttributes"]["emotion"]["happiness"].doubleValue
-//        self.userDataModel.anger = json[0]["faceAttributes"]["emotion"]["anger"].doubleValue
-//        self.userDataModel.disgust = json[0]["faceAttributes"]["emotion"]["disgust"].doubleValue
-//        self.userDataModel.fear = json[0]["faceAttributes"]["emotion"]["fear"].doubleValue
-//        self.userDataModel.sadness = json[0]["faceAttributes"]["emotion"]["sadness"].doubleValue
-//        self.userDataModel.contempt = json[0]["faceAttributes"]["emotion"]["contempt"].doubleValue
-//        self.userDataModel.surprise = json[0]["faceAttributes"]["emotion"]["surprise"].doubleValue
-//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "toData") {
@@ -360,9 +274,47 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
         
     }
     
+    //time based logic:
+    //set the postion of the vituralPhoneNode to the real-world and real-time pos of the ipad every frame (60 frames per second)
+    //update the time indicator, and execute the analysis session every few seconds
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         virtualPhoneNode.transform = (sceneView.pointOfView?.transform)!
-        
+        if(analysisButtonPressed == true) {
+            if(time > clockUpdateTime) {
+                //update the time indicator
+                //schedule the clockUpdateTime when system time is forward
+                clockUpdateTime = time + TimeInterval(1)
+                
+                //perform countdown before the analysis session
+                if(!analysisSessionRunning){
+                    startInt -= 1
+                    DispatchQueue.main.async {
+                        self.analysisButton.setTitle(String(self.startInt), for: .normal)
+                    }
+                    if (startInt == 0){
+                        self.analysisSessionRunning = true
+                    }
+                }
+                
+                //start the analysis session after countdown
+                if (analysisSessionRunning) {
+                    sessionInt -= 1
+                    DispatchQueue.main.async {
+                        self.analysisButton.setTitle("session running", for: .normal)
+                        self.timeLabel.text = String(self.sessionInt)
+                    }
+                }
+            }
+            
+            if (time > analysisPerformTime) {
+                //It's time to perform analysis!
+                //schedule the next analysis performing time, perform analysis every 5 sec for the current setting
+                analysisPerformTime = time + TimeInterval(5)
+                
+                //take a picture of user's face and run azure face analysis, then upload result to firebase
+                self.analyzeCurrentUserFace()
+            }
+        }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
@@ -370,5 +322,32 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
         guard let faceAnchor = anchor as? ARFaceAnchor else { return }
         update(withFaceAnchor: faceAnchor)
     }
+
+    
+//    Traditional timer with bugs
+//    @objc func startAnalysisSessionTimer() {
+//        startInt -= 1
+//        analysisButton.setTitle(String(startInt), for: .normal)
+//
+//        if startInt == 0 {
+//            startTimer.invalidate()
+//            analysisButton.setTitle("Session Running", for: .normal)
+//            DispatchQueue.main.async {
+//                self.sessionTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.runAnalysisSession), userInfo: nil, repeats: true)
+//            }
+//        }
+//    }
+    
+    //bug: timer not running when scrolling the webview
+    //may fix the bug by using the renderer(update at time) method?
+//    @objc func runAnalysisSession(){
+//        DispatchQueue.main.async {
+//            self.sessionInt -= 1
+//            self.timeLabel.text = String(self.sessionInt)
+//            if (self.sessionInt == 0) {
+//                self.sessionTimer.invalidate()
+//            }
+//        }
+//    }
     
 }

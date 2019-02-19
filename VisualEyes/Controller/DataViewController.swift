@@ -13,8 +13,11 @@ class DataViewController: UIViewController,
 UINavigationControllerDelegate {
     var userDataD : UserData!
     
+    @IBOutlet weak var newSessionButton: UIButton!
+    
+    
     override func viewDidLoad() {
-        print("======================================in DATAVIEWCONTRLWLEER")
+        print("======================================in DATAVIEWCONTtRLWLEER")
         print(userDataD.age)
         
     }
