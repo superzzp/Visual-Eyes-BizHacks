@@ -228,6 +228,7 @@ Position Estimation</string>
                         <outlet property="sceneView" destination="W9c-Gg-veJ" id="MwD-uf-Osc"/>
                         <outlet property="timeLabel" destination="ZXc-H7-iBQ" id="RMG-7n-f6V"/>
                         <outlet property="webView" destination="saK-eH-dzW" id="phT-GD-Fie"/>
+                        <segue destination="t9D-HY-lDg" kind="show" identifier="goToDataViewController" id="X4d-EN-yQl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -257,7 +258,7 @@ Position Estimation</string>
                                     <segue destination="BV1-FR-VrT" kind="show" id="kSs-WJ-qqk"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="microsoft_simple_logo" translatesAutoresizingMaskIntoConstraints="NO" id="77w-s3-8yt">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bestbuy_logo" translatesAutoresizingMaskIntoConstraints="NO" id="77w-s3-8yt">
                                 <rect key="frame" x="272" y="182" width="303" height="176"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -275,8 +276,8 @@ Position Estimation</string>
         </scene>
     </scenes>
     <resources>
+        <image name="bestbuy_logo" width="1024" height="706"/>
         <image name="certificate" width="1296" height="1728"/>
-        <image name="microsoft_simple_logo" width="500" height="500"/>
         <image name="tab_home_black" width="25" height="25"/>
     </resources>
 </document>

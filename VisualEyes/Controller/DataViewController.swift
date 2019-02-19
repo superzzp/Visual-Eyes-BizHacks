@@ -18,7 +18,6 @@ UINavigationControllerDelegate {
     
     override func viewDidLoad() {
         print("======================================in DATAVIEWCONTtRLWLEER")
-        print(userDataD.age)
         
     }
     

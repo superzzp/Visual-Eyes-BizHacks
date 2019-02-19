@@ -11,6 +11,8 @@ import UIKit
 
 class UserData {
     
+    let formatter = DateFormatter()
+    
     //image of user
     var imageURL: String
     var imageHeight: CGFloat
@@ -33,23 +35,31 @@ class UserData {
     var gender: String
     var age : Int
     
+    //user focal area
+    var xpos: Int
+    var ypos: Int
+    
     var dictValue: [String : Any] {
         let createdAgo = creationDate.timeIntervalSince1970
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let creationDateAndTime = formatter.string(from: creationDate)
         
-        return ["image_url" : imageURL,
-                "image_height" : imageHeight,
-                "created_at" : createdAgo,
-                "fear" : fear,
-            "happiness": happiness,
-            "contempt" : contempt,
-            "disgust" : disgust,
-            "surprise" : surprise,
-            "sadness" : sadness,
-            "anger" : anger,
-            "neutral" : neutral,
+        return ["face_image_url" : imageURL,
+                "face_image_height" : imageHeight,
+                "created_at" : creationDateAndTime,
+                "em_fear" : fear,
+            "em_happiness": happiness,
+            "em_contempt" : contempt,
+            "em_disgust" : disgust,
+            "em_surprise" : surprise,
+            "em_sadness" : sadness,
+            "em_anger" : anger,
+            "em_neutral" : neutral,
             "smile" : smile,
             "gender" : gender,
-            "age" : age]
+            "age" : age,
+            "focus_x": xpos,
+            "focus_y": ypos]
     }
     
     init() {
@@ -68,6 +78,8 @@ class UserData {
         smile = 0.0
         gender = ""
         age = 0
+        xpos = 0
+        ypos = 0
     }
     
     
@@ -89,6 +101,8 @@ class UserData {
         self.smile = 0.0
         self.gender = ""
         self.age = 0
+        self.xpos = 0
+        self.ypos = 0
     }
     
     

@@ -40,7 +40,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
     
     var startInt = 4
     
-    var sessionInt = 60
+    var sessionInt = 15
     
     //timer for time indicator
     var analysisButtonPressed: Bool = false
@@ -254,13 +254,13 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
     }
     
     
-    func analyzeCurrentUserFace() {
+    func analyzeCurrentUser() {
         let image = self.sceneView.snapshot()
         print(image)
         //unnecessary event handeler
         //remove later
-        UploadService.create(for: image) { url in
-
+        UploadService.create(for: image, xpos: lookAtPositionXLabel.text, ypos: lookAtPositionYLabel.text) { url in
+            
         }
     }
     
@@ -303,6 +303,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
                         self.analysisButton.setTitle("session running", for: .normal)
                         self.timeLabel.text = String(self.sessionInt)
                     }
+                    if(sessionInt == 0) {
+                        analysisSessionRunning = false
+                        performSegue(withIdentifier: "goToDataViewController", sender: self)
+                    }
                 }
             }
             
@@ -312,7 +316,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
                 analysisPerformTime = time + TimeInterval(5)
                 
                 //take a picture of user's face and run azure face analysis, then upload result to firebase
-                self.analyzeCurrentUserFace()
+                self.analyzeCurrentUser()
             }
         }
     }

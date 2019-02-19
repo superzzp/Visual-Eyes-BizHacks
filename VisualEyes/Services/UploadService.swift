@@ -16,7 +16,7 @@ struct UploadService {
     
     
     
-    static func create(for image: UIImage, completion: @escaping (URL?) -> Void) {
+    static func create(for image: UIImage,xpos:String?, ypos:String?, completion: @escaping (URL?) -> Void) {
         //generate a unique imageRef for every uploads based on the UID and current time
         let imageRef = StorageReference.newPostImageReference()
             StorageService.uploadImage(image, at: imageRef) { (downloadURL) in
@@ -41,6 +41,15 @@ struct UploadService {
                         print("face not detected in this shot")
                         return completion(nil)
                     }
+                    
+                    if let userXpos = xpos{
+                        userDataModel.xpos = Int(userXpos)!
+                    }
+                    if let userYpos = ypos{
+                        userDataModel.ypos = Int(userYpos)!
+                    }
+                    
+                    //json parsing using SwiftyJSON
                     userDataModel.gender = jso[0]["faceAttributes"]["gender"].stringValue
                     userDataModel.neutral = jso[0]["faceAttributes"]["emotion"]["neutral"].doubleValue
                     userDataModel.happiness = jso[0]["faceAttributes"]["emotion"]["happiness"].doubleValue
@@ -50,6 +59,7 @@ struct UploadService {
                     userDataModel.sadness = jso[0]["faceAttributes"]["emotion"]["sadness"].doubleValue
                     userDataModel.contempt = jso[0]["faceAttributes"]["emotion"]["contempt"].doubleValue
                     userDataModel.surprise = jso[0]["faceAttributes"]["emotion"]["surprise"].doubleValue
+                    userDataModel.smile = jso[0]["faceAttributes"]["smile"].doubleValue
                     print("==============json data in Upload service =======")
                     print("gender: \(userDataModel.gender)")
                     
