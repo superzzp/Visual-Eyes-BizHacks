@@ -37,6 +37,10 @@ struct UploadService {
                     print(jso)
                     let userDataModel = UserData()
                     userDataModel.age = jso[0]["faceAttributes"]["age"].intValue
+                    if userDataModel.age == 0 {
+                        print("face not detected in this shot")
+                        return completion(nil)
+                    }
                     userDataModel.gender = jso[0]["faceAttributes"]["gender"].stringValue
                     userDataModel.neutral = jso[0]["faceAttributes"]["emotion"]["neutral"].doubleValue
                     userDataModel.happiness = jso[0]["faceAttributes"]["emotion"]["happiness"].doubleValue
@@ -53,8 +57,8 @@ struct UploadService {
                     //calculate the aspect height base on the physical size of the device
                     let aspectHeight = image.aspectHeight
                     create(forURLString:urlString, aspectHeight: aspectHeight, userDataModel: userDataModel)
-                    
                     return completion(downloadURL)
+                    
                 }else{
                     print("fail to get json data from Azure")
                     return completion(nil)
