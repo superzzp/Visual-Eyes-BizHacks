@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+      <script type="module" src="../Global.js"></script>
+    <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "",
+    authDomain: "artracker-bdbde.firebaseapp.com",
+    databaseURL: "https://artracker-bdbde.firebaseio.com",
+    projectId: "artracker-bdbde",
+    storageBucket: "artracker-bdbde.appspot.com",
+    messagingSenderId: "35518389885"
+  };
+  firebase.initializeApp(config);
+
+  var scores = [0, 0, 0, 0, 0, 0, 0, 0];
+
+  var data = firebase.database().ref('Analysis');
+  data.on('value', function(snapshot) {
+    snapshot.forEach(function(child) {
+      child.forEach(function(node){
+        let json = JSON.stringify(node.val());
+        json = JSON.parse(json);
+        console.log(json);
+        if (json.anger != undefined) {
+          console.log(json.anger);
+          scores[0] += json.anger;
+        }
+        if (json.em_anger != undefined) {
+          console.log(json.em_anger);
+          scores[0] += json.em_anger;
+        }
+        if (json.contempt != undefined) {
+          console.log(json.contempt);
+          scores[1] += json.contempt;
+        }
+        if (json.em_contempt != undefined) {
+          console.log(json.em_contempt);
+          scores[1] += json.em_contempt;
+        }
+        if (json.disgust != undefined) {
+          console.log(json.disgust);
+          scores[2] += json.disgust;
+        }
+        if (json.em_disgust != undefined) {
+          console.log(json.em_disgust);
+          scores[2] += json.em_disgust;
+        }
+        if (json.fear != undefined) {
+          console.log(json.fear);
+          scores[3] += json.fear;
+        }
+        if (json.em_fear != undefined) {
+          console.log(json.em_fear);
+          scores[3] += json.em_fear;
+        }
+        if (json.happiness != undefined) {
+          scores[4] += json.happiness;
+        }
+        if (json.em_happiness != undefined) {
+          scores[4] += json.em_happiness;
+        }
+        if (json.neutral != undefined) {
+          console.log(json.neutral);
+          scores[5] += json.neutral;
+        }
+        if (json.em_neutral != undefined) {
+          console.log(json.em_neutral);
+          scores[5] += json.em_neutral;
+        }
+        if (json.sadness != undefined) {
+          scores[6] += json.sadness;
+        }
+        if (json.em_sadness != undefined) {
+          scores[6] += json.em_sadness;
+        }
+        if (json.surprise != undefined) {
+          scores[7] += json.surprise;
+        }
+        if (json.em_surprise != undefined) {
+          scores[7] += json.em_surprise;
+        }
+      
+        });
+    });
+  });
+
+  function updateAnalysisDiagram(data_val){
+    
+  }
+  console.log("DATA");
+  
+
+
+</script>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+    <div id="emotion" style="width:600px;height:500px;"></div>
+    <button id="getdata">Get Data</button>
+    <script> 
+      var emotion = document.getElementById('emotion');
+      var button = document.getElementById('getdata');
+      Plotly.plot( emotion, [{
+        values: scores,
+        labels: ['Anger','Contempt', 'Disgust', 'Fear', 'Happiness', 'Neutral', 'Sadness', 'Surprise'],
+        showlegend: true,
+        type: 'pie',
+        hole: 0.5
+
+      }]); 
+      
+      button.addEventListener('click', function(){
+        var score =  [{
+          values: scores,
+          labels: ['Anger','Contempt', 'Disgust', 'Fear', 'Happiness', 'Neutral', 'Sadness', 'Surprise'],
+          showlegend: true,
+          type: 'pie',
+           hole: 0.5
+        }];
+        Plotly.newPlot(emotion, score);
+      });
+      
+    </script>
+
+  </body>
+</html>
