@@ -1,0 +1,18 @@
+.graphs {
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    text-align: center;
+}
+
+.getbutton {
+    background-color: #9b68ea;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    font-size: 20px;
+    border-radius: 20px;
+}
