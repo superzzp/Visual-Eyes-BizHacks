@@ -61,8 +61,12 @@
     <div class='button'>
       <button class='getbutton' id="getdata">Get Data</button> 
     </div>
+    <div class='heatmap' id='heatmap'>
+        <img src='heatmap.png'><img>
+    </div>
 
     <script> 
+      document.getElementById("heatmap").style.display = "none";
       var emotion = document.getElementById('emotion');
       var button = document.getElementById('getdata');
       Plotly.plot( emotion, [{
@@ -81,6 +85,11 @@
       
       button.addEventListener('click', function(){
 
+        var x = document.getElementById("heatmap");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          }
+        
       var scores = [0, 0, 0, 0, 0, 0, 0, 0];
       var smile_x = [];
       var smile_y = [];
