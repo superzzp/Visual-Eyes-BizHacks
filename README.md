@@ -10,6 +10,8 @@ Eye-tracking and face analysis in AR, for recording user's focus and predicting 
 
 *Click the image above to watch a demo*
 
+<img src="VisualEyesWeb/visualeyesweb/src/screenshot.png" width="600" title="Screenshot of Website">
+
 ## Architecture
 
 <!--![Architecture](https://github.com/dandua98/MSNewsAR/blob/master/common/images/architecture.jpg)-->
