@@ -1,0 +1,16 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+build/Release
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# dotenv environment variables file
+.env
