@@ -8,10 +8,14 @@
 
 import Foundation
 import UIKit
+import Firebase
+import FirebaseAuth
+
 
 class DataViewController: UIViewController,
 UINavigationControllerDelegate {
     var userDataD : UserData!
+    
     
     @IBOutlet weak var newSessionButton: UIButton!
     
@@ -21,4 +25,18 @@ UINavigationControllerDelegate {
         
     }
     
+    @IBAction func logOut(_ sender: UIButton) {
+        do {
+            try! Auth.auth().signOut()
+        } catch let error as NSError {
+            assertionFailure("Error signing out: \(error.localizedDescription)")
+        }
+        let loginViewController: UIViewController
+        if let storyboard = self.storyboard {
+            print("=======test 33 ===============")
+            loginViewController = UIStoryboard.initialViewController(for: .login)
+            self.view.window?.rootViewController = loginViewController
+            self.view.window?.makeKeyAndVisible()
+        }
+    }
 }

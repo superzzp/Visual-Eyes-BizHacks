@@ -31,6 +31,7 @@ class  LoginViewController: UIViewController,FUIAuthDelegate{
         LoginButton.layer.cornerRadius = 5
         LoginButton.layer.borderWidth = 1
         LoginButton.layer.backgroundColor = UIColor(red: 93/255.0, green: 99/255.0, blue: 103/255.0, alpha: 0.8).cgColor
+        
     }
     
 
@@ -51,7 +52,7 @@ class  LoginViewController: UIViewController,FUIAuthDelegate{
     //function that gets called after user login success or fail
     
     func authUI(_ authUI: FUIAuth, didSignInWith authDataResult: AuthDataResult?, error: Error?) {
-        print("============================================1sadfsdfsadfadsf")
+
         if(error != nil) {
             assertionFailure("Error signing in \(String(describing: error?.localizedDescription))")
         }else{

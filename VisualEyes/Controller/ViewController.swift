@@ -40,7 +40,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
     
     var startInt = 4
     
-    var sessionInt = 15
+    var sessionInt = 10
     
     //timer for time indicator
     var analysisButtonPressed: Bool = false
@@ -144,6 +144,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
         
         analysisButton.layer.cornerRadius = 5
         analysisButton.layer.borderWidth = 1
+        analysisButton.layer.backgroundColor = UIColor(red: 93/255.0, green: 99/255.0, blue: 103/255.0, alpha: 0.8).cgColor
         
         
     }
@@ -313,7 +314,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
             if (time > analysisPerformTime) {
                 //It's time to perform analysis!
                 //schedule the next analysis performing time, perform analysis every 5 sec for the current setting
-                analysisPerformTime = time + TimeInterval(5)
+                analysisPerformTime = time + TimeInterval(2)
                 
                 //take a picture of user's face and run azure face analysis, then upload result to firebase
                 self.analyzeCurrentUser()

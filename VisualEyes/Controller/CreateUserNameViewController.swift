@@ -15,6 +15,7 @@ class CreateUsernameViewController: UIViewController
 {
     @IBOutlet weak var usernameTextField: UITextField!
     
+    
     @IBAction func nextButtonPressed(_ sender: UIButton) {
         guard let firUser = Auth.auth().currentUser,
             let username = usernameTextField.text,
