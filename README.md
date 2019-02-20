@@ -6,7 +6,7 @@ Eye-tracking and face analysis in AR, for recording user's focus and predicting 
 
 **First Place**, *Best Buy Price Winner* out of 400+ people.
 
-[![Visual Eyes](https://img.youtube.com/vi/dHPioO0KVxE/0.jpg)](https://www.youtube.com/watch?v=dHPioO0KVxE)
+[![Visual Eyes](https://img.youtube.com/vi/dHPioO0KVxE/0.jpg)](https://www.youtube.com/watch?v=kuNiwt-e9Uc)
 
 *Click the image above to watch a demo*
 
