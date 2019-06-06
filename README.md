@@ -1,6 +1,6 @@
 # Visual Eyes
 
-**Powered by Azure Cognitive Services, ARKit2 and Firebase**
+**Powered by Azure Cognitive Services, ARKit2, Firebase and React**
 
 Eye-tracking and face analysis in AR, for recording user's focus and predicting user's geographics and emotion when reading marketing materials. Dynamically store and visualize analysis data. Proof of concept at _BizHacks_. 
 
