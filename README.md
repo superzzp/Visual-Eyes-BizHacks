@@ -6,7 +6,7 @@ Eye-tracking and face analysis in AR, for recording user's focus and predicting 
 
 **First Place**, *Best Buy Price Winner* out of 400+ people.
 
-https://github.com/superzzp/Visual-Eyes-BizHacks/assets/37462732/35d0b51d-e7fb-4a38-8db2-5d12eaae9941
+https://github.com/superzzp/Visual-Eyes-BizHacks/assets/37462732/f7a28fb5-8a66-4e55-9d7e-39ebce916c96
 
 *Click the image above to watch a demo*
 
