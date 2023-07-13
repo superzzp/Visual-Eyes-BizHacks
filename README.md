@@ -10,7 +10,7 @@ https://github.com/superzzp/Visual-Eyes-BizHacks/assets/37462732/f7a28fb5-8a66-4
 
 *Click the image above to watch a demo*
 
-<img src="VisualEyesWeb/visualeyesweb/src/screenshot.png" width="600" title="Screenshot of Website">
+![webapp-screenshot](https://github.com/superzzp/Visual-Eyes-BizHacks/assets/37462732/23875575-96b0-4b29-90e4-44a1f1909e8e)
 
 ## Architecture
 
@@ -24,4 +24,5 @@ cognitive services to predict user's age, gender and emotion during a set period
 In addition, a client website demo serves as a data visualization tool. It can display accumulated user emotions as a pie chart. It is built with React and JavaScript and reads data from the Firebase server and converts it into beautiful graphs built with Plotly.  
 
 ## Team Photos
+
 ![pics](https://github.com/superzzp/Visual-Eyes-BizHacks/assets/37462732/6a285ca1-8b1d-4f41-aba2-0cb56acae071)
