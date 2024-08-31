@@ -2,10 +2,9 @@
 //  UploadService.swift
 //  VisualEyes
 //
-//  Created by Alex Zhang on 2019-02-09.
-//  Copyright © 2019 Alex Zhang. All rights reserved.
+//  Copyright © 2024 Alex Zhang. All rights reserved.
 //
-
+// Class for handling image uploads, performing face analysis using Azure Cognitive Services, and storing the results in Firebase
 import Foundation
 import UIKit
 import FirebaseStorage
@@ -14,83 +13,90 @@ import SwiftyJSON
 
 struct UploadService {
     
-    
-    
-    static func create(for image: UIImage,xpos:String?, ypos:String?, completion: @escaping (URL?) -> Void) {
-        //generate a unique imageRef for every uploads based on the UID and current time
+    // Method to create and upload an image, perform face analysis, and store the results in Firebase
+    static func create(for image: UIImage, xpos: String?, ypos: String?, completion: @escaping (URL?) -> Void) {
+        
+        // Generate a unique reference for the image upload based on the user's UID and current time
         let imageRef = StorageReference.newPostImageReference()
-            StorageService.uploadImage(image, at: imageRef) { (downloadURL) in
+        
+        // Upload the image to Firebase Storage
+        StorageService.uploadImage(image, at: imageRef) { downloadURL in
             guard let downloadURL = downloadURL else {
+                // If the image upload fails, return nil
                 return completion(nil)
             }
             
-            let urlString = downloadURL.absoluteString
+            // Print success message for debugging
+            print("Successfully returned downloadURL in Upload Service")
             
-            //print("image url: \(urlString)")
-            print("successfully returned downloadURL in Upload Service")
-            
-            AzureCognitiveService.azureFaceAnalysis(facePicsUrl: downloadURL, completion: { json in
-     
-                if let jso = json {
-                    //print out the returned json for testing
-                    print("==============json data in Upload service =======")
-                    print(jso)
-                    let userDataModel = UserData()
-                    userDataModel.age = jso[0]["faceAttributes"]["age"].intValue
-                    if userDataModel.age == 0 {
-                        print("face not detected in this shot")
-                        return completion(nil)
-                    }
-                    
-                    if let userXpos = xpos{
-                        userDataModel.xpos = Int(userXpos)!
-                    }
-                    if let userYpos = ypos{
-                        userDataModel.ypos = Int(userYpos)!
-                    }
-                    
-                    //json parsing using SwiftyJSON
-                    userDataModel.gender = jso[0]["faceAttributes"]["gender"].stringValue
-                    userDataModel.neutral = jso[0]["faceAttributes"]["emotion"]["neutral"].doubleValue
-                    userDataModel.happiness = jso[0]["faceAttributes"]["emotion"]["happiness"].doubleValue
-                    userDataModel.anger = jso[0]["faceAttributes"]["emotion"]["anger"].doubleValue
-                    userDataModel.disgust = jso[0]["faceAttributes"]["emotion"]["disgust"].doubleValue
-                    userDataModel.fear = jso[0]["faceAttributes"]["emotion"]["fear"].doubleValue
-                    userDataModel.sadness = jso[0]["faceAttributes"]["emotion"]["sadness"].doubleValue
-                    userDataModel.contempt = jso[0]["faceAttributes"]["emotion"]["contempt"].doubleValue
-                    userDataModel.surprise = jso[0]["faceAttributes"]["emotion"]["surprise"].doubleValue
-                    userDataModel.smile = jso[0]["faceAttributes"]["smile"].doubleValue
-                    print("==============json data in Upload service =======")
-                    print("gender: \(userDataModel.gender)")
-                    
-                    let urlString = downloadURL.absoluteString
-                    //calculate the aspect height base on the physical size of the device
-                    let aspectHeight = image.aspectHeight
-                    create(forURLString:urlString, aspectHeight: aspectHeight, userDataModel: userDataModel)
-                    return completion(downloadURL)
-                    
-                }else{
-                    print("fail to get json data from Azure")
+            // Perform face analysis using the uploaded image's URL
+            AzureCognitiveService.azureFaceAnalysis(facePicsUrl: downloadURL) { json in
+                guard let json = json else {
+                    // If face analysis fails, return nil
+                    print("Failed to get JSON data from Azure")
                     return completion(nil)
                 }
-            })
+                
+                // Create a UserData model to store the analysis results
+                let userDataModel = UserData()
+                
+                // Parse the age from the JSON response
+                userDataModel.age = json[0]["faceAttributes"]["age"].intValue
+                if userDataModel.age == 0 {
+                    // If no face is detected, return nil
+                    print("Face not detected in this shot")
+                    return completion(nil)
+                }
+                
+                // Parse the x and y positions if provided
+                if let userXpos = xpos {
+                    userDataModel.xpos = Int(userXpos) ?? 0
+                }
+                if let userYpos = ypos {
+                    userDataModel.ypos = Int(userYpos) ?? 0
+                }
+                
+                // Parse additional attributes using SwiftyJSON
+                userDataModel.gender = json[0]["faceAttributes"]["gender"].stringValue
+                userDataModel.neutral = json[0]["faceAttributes"]["emotion"]["neutral"].doubleValue
+                userDataModel.happiness = json[0]["faceAttributes"]["emotion"]["happiness"].doubleValue
+                userDataModel.anger = json[0]["faceAttributes"]["emotion"]["anger"].doubleValue
+                userDataModel.disgust = json[0]["faceAttributes"]["emotion"]["disgust"].doubleValue
+                userDataModel.fear = json[0]["faceAttributes"]["emotion"]["fear"].doubleValue
+                userDataModel.sadness = json[0]["faceAttributes"]["emotion"]["sadness"].doubleValue
+                userDataModel.contempt = json[0]["faceAttributes"]["emotion"]["contempt"].doubleValue
+                userDataModel.surprise = json[0]["faceAttributes"]["emotion"]["surprise"].doubleValue
+                userDataModel.smile = json[0]["faceAttributes"]["smile"].doubleValue
+
+                
+                // Calculate the aspect height based on the physical size of the device
+                let aspectHeight = image.aspectHeight
+                
+                // Save the data to Firebase Database
+                create(forURLString: downloadURL.absoluteString, aspectHeight: aspectHeight, userDataModel: userDataModel)
+                
+                // Return the download URL upon successful completion
+                return completion(downloadURL)
+            }
         }
     }
     
+    // Private method to save the analyzed data to Firebase Database
     private static func create(forURLString urlString: String, aspectHeight: CGFloat, userDataModel: UserData) {
-        // find the current user
+        // Get the current user
         let currentUser = User.current
-        // get the userdate
-        let userData = userDataModel
-        // add image url to userData
-        userData.imageURL = urlString
-        // add image height to the image for future display
-        userData.imageHeight = aspectHeight
-        // transform an object to json format
-        let dict = userData.dictValue
-        //childByAutoId generates a new child location using a unique key and returns a FIRDatabaseReference to it. This is useful when the children of a Firebase Database location represent a list of items.
+        
+        // Update user data with the image URL and aspect height
+        userDataModel.imageURL = urlString
+        userDataModel.imageHeight = aspectHeight
+        
+        // Transform the UserData model into a dictionary format
+        let dict = userDataModel.dictValue
+        
+        // Create a new child reference in the Firebase Database for storing the analysis
         let postRef = Database.database().reference().child("Analysis").child(currentUser.uid).childByAutoId()
         
+        // Save the user data to the database
         postRef.updateChildValues(dict)
     }
 }

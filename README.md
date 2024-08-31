@@ -4,7 +4,7 @@
 
 Eye-tracking and face analysis in AR, for recording user's focus and predicting user's geographics and emotion when reading marketing materials. Dynamically store and visualize analysis data. Proof of concept at _BizHacks_. 
 
-**First Place**, *Best Buy Price Winner* out of 400+ people.
+**First Place**, *Deloitte and Best Buy Price Winner* out of 400+ people.
 
 https://github.com/superzzp/Visual-Eyes-BizHacks/assets/37462732/f7a28fb5-8a66-4e55-9d7e-39ebce916c96
 
@@ -23,6 +23,6 @@ cognitive services to predict user's age, gender and emotion during a set period
 
 In addition, a client website demo serves as a data visualization tool. It can display accumulated user emotions as a pie chart. It is built with React and JavaScript and reads data from the Firebase server and converts it into beautiful graphs built with Plotly.  
 
-## Team Photos
+<!-- ## Team Photos -->
 
-![pics](https://github.com/superzzp/Visual-Eyes-BizHacks/assets/37462732/6a285ca1-8b1d-4f41-aba2-0cb56acae071)
+<!-- ![pics](https://github.com/superzzp/Visual-Eyes-BizHacks/assets/37462732/6a285ca1-8b1d-4f41-aba2-0cb56acae071) -->

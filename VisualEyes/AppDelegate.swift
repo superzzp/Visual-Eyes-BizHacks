@@ -2,8 +2,7 @@
 //  AppDelegate.swift
 //  VisualEyes
 //
-//  Created by Alex Zhang on 2019-02-03.
-//  Copyright © 2019 Alex Zhang. All rights reserved.
+//  Copyright © 2024 Alex Zhang. All rights reserved.
 //
 
 import UIKit

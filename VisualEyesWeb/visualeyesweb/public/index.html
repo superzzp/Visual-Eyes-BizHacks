@@ -1,189 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+      <!-- Importing external libraries for Plotly and Firebase -->
       <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
       <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
       <link rel="stylesheet" type="text/css" href="styles.css">
-    <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "",
-    authDomain: "artracker-bdbde.firebaseapp.com",
-    databaseURL: "https://artracker-bdbde.firebaseio.com",
-    projectId: "artracker-bdbde",
-    storageBucket: "artracker-bdbde.appspot.com",
-    messagingSenderId: "35518389885"
-  };
-  firebase.initializeApp(config);
+      
+      <script>
+        // Initialize Firebase with the project's configuration details
+        var config = {
+          apiKey: "",
+          authDomain: "artracker-bdbde.firebaseapp.com",
+          databaseURL: "https://artracker-bdbde.firebaseio.com",
+          projectId: "artracker-bdbde",
+          storageBucket: "artracker-bdbde.appspot.com",
+          messagingSenderId: "35518389885"
+        };
+        firebase.initializeApp(config);
+      </script>
 
-
-</script>
-    <meta charset="utf-8" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="theme-color" content="#000000" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+      <!-- Meta tags and title for the React App -->
+      <meta charset="utf-8" />
+      <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      />
+      <meta name="theme-color" content="#000000" />
+      
+      <!-- Link to the manifest file -->
+      <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+      
+      <title>React App</title>
   </head>
   <body>
+    <!-- Message displayed if JavaScript is disabled -->
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    
+    <!-- Root div where the React app will be rendered -->
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    
+    <!-- Graphs and button for data visualization -->
     <div class="graphs">
+      <!-- Placeholder for the pie chart showing emotion data -->
       <div id="emotion" style="width:750px;height:500px;"></div>
+      
+      <!-- Placeholder for the scatter plot showing smile data -->
       <div id="smile" style="width:600px;height:500px;"></div>
     </div>
+
+    <!-- Button to trigger data retrieval from Firebase -->
     <div class='button'>
       <button class='getbutton' id="getdata">Get Data</button> 
     </div>
+
+    <!-- Section for displaying the heatmap, initially hidden -->
     <div class='heatmap' id='heatmap'>
         <img src='heatmap.png'><img>
     </div>
 
     <script> 
+      // Hide the heatmap initially
       document.getElementById("heatmap").style.display = "none";
+      
+      // Get references to the emotion and smile chart containers
       var emotion = document.getElementById('emotion');
       var button = document.getElementById('getdata');
-      Plotly.plot( emotion, [{
+      
+      // Initialize the emotion pie chart with empty data
+      Plotly.plot(emotion, [{
         values: [0,0,0,0,0,0,0,0],
         labels: ['Anger','Contempt', 'Disgust', 'Fear', 'Happiness', 'Neutral', 'Sadness', 'Surprise'],
         showlegend: true,
         type: 'pie',
         hole: 0.5
-
       }]); 
-      var smile = document.getElementById('smile');
-	    Plotly.plot( smile, [{
-      x:[23, 24, 25],
-      y:[0, 0, 0],
-      }]);
       
+      // Initialize the smile scatter plot with empty data
+      var smile = document.getElementById('smile');
+      Plotly.plot(smile, [{
+        x:[23, 24, 25],
+        y:[0, 0, 0],
+      }]);
+
+      // Event listener for the "Get Data" button
       button.addEventListener('click', function(){
-
+        // Show the heatmap when the button is clicked
         var x = document.getElementById("heatmap");
-          if (x.style.display === "none") {
-            x.style.display = "block";
-          }
-        
-      var scores = [0, 0, 0, 0, 0, 0, 0, 0];
-      var smile_x = [];
-      var smile_y = [];
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        }
 
-          var data = firebase.database().ref('Analysis');
-          data.on('value', function(snapshot) {
-            snapshot.forEach(function(child) {
-              child.forEach(function(node){
-                let json = JSON.stringify(node.val());
-                json = JSON.parse(json);
-                console.log(json);
-                if(json.age != undefined) {
-                  smile_x.push(json.age);
-                }
-                if(json.smile != undefined) {
-                  smile_y.push(json.smile);
-                }
-                if (json.anger != undefined) {
-                  console.log(json.anger);
-                  scores[0] += json.anger;
-                }
-                if (json.em_anger != undefined) {
-                  console.log(json.em_anger);
-                  scores[0] += json.em_anger;
-                }
-                if (json.contempt != undefined) {
-                  console.log(json.contempt);
-                  scores[1] += json.contempt;
-                }
-                if (json.em_contempt != undefined) {
-                  console.log(json.em_contempt);
-                  scores[1] += json.em_contempt;
-                }
-                if (json.disgust != undefined) {
-                  console.log(json.disgust);
-                  scores[2] += json.disgust;
-                }
-                if (json.em_disgust != undefined) {
-                  console.log(json.em_disgust);
-                  scores[2] += json.em_disgust;
-                }
-                if (json.fear != undefined) {
-                  console.log(json.fear);
-                  scores[3] += json.fear;
-                }
-                if (json.em_fear != undefined) {
-                  console.log(json.em_fear);
-                  scores[3] += json.em_fear;
-                }
-                if (json.happiness != undefined) {
-                  scores[4] += json.happiness;
-                }
-                if (json.em_happiness != undefined) {
-                  scores[4] += json.em_happiness;
-                }
-                if (json.neutral != undefined) {
-                  console.log(json.neutral);
-                  scores[5] += json.neutral;
-                }
-                if (json.em_neutral != undefined) {
-                  console.log(json.em_neutral);
-                  scores[5] += json.em_neutral;
-                }
-                if (json.sadness != undefined) {
-                  scores[6] += json.sadness;
-                }
-                if (json.em_sadness != undefined) {
-                  scores[6] += json.em_sadness;
-                }
-                if (json.surprise != undefined) {
-                  scores[7] += json.surprise;
-                }
-                if (json.em_surprise != undefined) {
-                  scores[7] += json.em_surprise;
-                }
+        // Initialize arrays for emotion scores and smile data
+        var scores = [0, 0, 0, 0, 0, 0, 0, 0];
+        var smile_x = [];
+        var smile_y = [];
+
+        // Reference to the 'Analysis' data in Firebase
+        var data = firebase.database().ref('Analysis');
+        data.on('value', function(snapshot) {
+          snapshot.forEach(function(child) {
+            child.forEach(function(node){
+              let json = JSON.stringify(node.val());
+              json = JSON.parse(json);
               
-                });
+              // Populate smile data arrays with age and smile values
+              if(json.age != undefined) {
+                smile_x.push(json.age);
+              }
+              if(json.smile != undefined) {
+                smile_y.push(json.smile);
+              }
+              
+              // Aggregate emotion scores from the Firebase data
+              if (json.anger != undefined) {
+                scores[0] += json.anger;
+              }
+              if (json.em_anger != undefined) {
+                scores[0] += json.em_anger;
+              }
+              if (json.contempt != undefined) {
+                scores[1] += json.contempt;
+              }
+              if (json.em_contempt != undefined) {
+                scores[1] += json.em_contempt;
+              }
+              if (json.disgust != undefined) {
+                scores[2] += json.disgust;
+              }
+              if (json.em_disgust != undefined) {
+                scores[2] += json.em_disgust;
+              }
+              if (json.fear != undefined) {
+                scores[3] += json.fear;
+              }
+              if (json.em_fear != undefined) {
+                scores[3] += json.em_fear;
+              }
+              if (json.happiness != undefined) {
+                scores[4] += json.happiness;
+              }
+              if (json.em_happiness != undefined) {
+                scores[4] += json.em_happiness;
+              }
+              if (json.neutral != undefined) {
+                scores[5] += json.neutral;
+              }
+              if (json.em_neutral != undefined) {
+                scores[5] += json.em_neutral;
+              }
+              if (json.sadness != undefined) {
+                scores[6] += json.sadness;
+              }
+              if (json.em_sadness != undefined) {
+                scores[6] += json.em_sadness;
+              }
+              if (json.surprise != undefined) {
+                scores[7] += json.surprise;
+              }
+              if (json.em_surprise != undefined) {
+                scores[7] += json.em_surprise;
+              }
             });
           });
+        });
 
+        // Update the emotion pie chart with the aggregated scores
         var score =  [{
           values: scores,
           labels: ['Anger','Contempt', 'Disgust', 'Fear', 'Happiness', 'Neutral', 'Sadness', 'Surprise'],
           showlegend: true,
           type: 'pie',
-           hole: 0.5
+          hole: 0.5
         }];
         Plotly.newPlot(emotion, score);
 
+        // Update the smile scatter plot with the smile data
         var smiles = [{
           x: smile_x,
           y: smile_y,
           marker: {
-            color: 'rgba(155, 104, 234, 1)'
+            color: 'rgba(155, 104, 234, 1)' // Marker color for the scatter plot
           },
           mode: 'markers',
           type: 'scatter'
@@ -191,11 +188,11 @@
         var layout = {
           xaxis: {
             domain: [0, 85], 
-            title: 'Age'
+            title: 'Age' // X-axis label
           }, 
           yaxis: {
             domain: [0,1],
-            title: 'Smile Rating'
+            title: 'Smile Rating' // Y-axis label
           }
         }
         Plotly.newPlot(smile, smiles, layout);
