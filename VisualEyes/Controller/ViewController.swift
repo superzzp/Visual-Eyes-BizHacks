@@ -1,9 +1,7 @@
 //
 //  ViewController.swift
 //  VisualEyes
-//
-//  Created by Alex Zhang on 2019-02-03.
-//  Copyright © 2019 Alex Zhang. All rights reserved.
+//  Copyright © 2024 Alex Zhang. All rights reserved.
 //
 
 import UIKit
@@ -27,9 +25,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, ARSessionDelegate, UI
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var analysisButton: UIButton!
-    
-    
-    
     
     let azureURL: String = Constants.Azure.AZUREURL
     var faceNode: SCNNode = SCNNode()

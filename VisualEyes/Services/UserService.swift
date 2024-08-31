@@ -2,46 +2,62 @@
 //  UserService.swift
 //  VisualEyes
 //
-//  Created by Alex Zhang on 2019-02-07.
-//  Copyright © 2019 Alex Zhang. All rights reserved.
+//  Copyright © 2024 Alex Zhang. All rights reserved.
 //
+// Class for handling user-related operations such as creating a new user, retrieving user data from Firebase, and setting the current user
 
 import Foundation
 import FirebaseAuth
 import FirebaseDatabase
 
-
 struct UserService {
     
-    //create a new user with the given username, save the user record on firebase, and set current user with the new user
-    static func create(_ firUser: FIRUser, username: String, completion: @escaping (User?) -> Void) {
+    // Method to create a new user with the given username, save the user record to Firebase, and set the current user
+    static func create(_ firUser: User, username: String, completion: @escaping (User?) -> Void) {
+        // Dictionary containing the user's attributes to be saved in Firebase
         let userAttrs = ["username": username]
         
+        // Reference to the specific user in the Firebase Database
         let ref = Database.database().reference().child("users").child(firUser.uid)
-        ref.setValue(userAttrs) { (error, ref) in
+        
+        // Save the user attributes to the Firebase Database
+        ref.setValue(userAttrs) { error, ref in
             if let error = error {
-                assertionFailure(error.localizedDescription)
+                // Handle the error if the data saving fails
+                print("Error saving user data: \(error.localizedDescription)")
                 return completion(nil)
             }
             
-            //processed added user info
-            ref.observeSingleEvent(of: .value, with: { (snapshot) in
-                let user = User(snapshot: snapshot)
-                //set the current user using singleton
-                User.setCurrent(user!)
+            // Once the data is saved, retrieve the user's data from Firebase
+            ref.observeSingleEvent(of: .value) { snapshot in
+                // Initialize a User object using the snapshot
+                guard let user = User(snapshot: snapshot) else {
+                    return completion(nil)
+                }
+                
+                // Set the current user using the singleton pattern
+                User.setCurrent(user)
+                
+                // Return the newly created user in the completion handler
                 completion(user)
-            })
+            }
         }
-        
     }
     
-    static func show (forUID uid: String, completion: @escaping (User?) -> Void) {
+    // Method to retrieve a user's data from Firebase based on their UID
+    static func show(forUID uid: String, completion: @escaping (User?) -> Void) {
+        // Reference to the specific user in the Firebase Database
         let ref = Database.database().reference().child("users").child(uid)
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+        
+        // Observe the user's data once and return it
+        ref.observeSingleEvent(of: .value) { snapshot in
+            // Initialize a User object using the snapshot
             guard let user = User(snapshot: snapshot) else {
                 return completion(nil)
             }
+            
+            // Return the retrieved user in the completion handler
             completion(user)
-        })
+        }
     }
 }
